@@ -1,0 +1,36 @@
+{% extends 'goats/base.html' %}
+
+{% block style %}
+<style>
+    img.goat {
+        width: 35em;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <img class="goat" src="{{ object.photo.url }}">
+        <h2>{{ object.name }}</h2>
+        <p>{{ object.description }}</p>
+    </div>
+
+    <h4>Comments</h4>
+
+    <form method="post" action="">{% csrf_token %}
+        {{ comment_form }}
+        <input type="submit" value="Save"/>
+    </form>
+    <div>
+        {% for comment in object.comment_set.all %}
+            <div>
+                <p class="small">{{ comment.created }}</p>
+                <p>{{ comment.comment }} <i class="small">({{ comment.user.email }})</i></p>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+

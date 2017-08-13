@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <!--Bootstrap CDN-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/png" href="{{STATIC_URL}}/favicon.ico"/>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <!--End Bootstrap CDN-->
+
+        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+        {% load static %}
+        <style>
+            body {
+                font-family: 'Arvo', serif;
+            }
+
+            .btn:hover {
+                color: rgba(0,0,0,.5);
+                border-color: yellow;
+                background-color: yellow;
+            }
+
+            .btn {
+                color: rgba(0,0,0,.5);
+                border-color: rgba(0,0,0,.5);
+            }
+
+        </style>
+
+        {% block style %}
+
+        {% endblock %}
+
+    </head>
+    <body>
+
+
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/goat.png' %}" width="50" alt="">
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">Goat Hub</a>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'goats_list' %}">All Goats</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'goat_form' %}">Add a Goat</a>
+              </li>
+            </ul>
+
+              <p class="my-2">
+              {% if request.user.is_authenticated %}
+                  Welcome, {{ request.user.email }}
+                  <ul class="navbar-nav mr-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                      </li>
+                    </ul>
+
+              {% else %}
+                  <div class="mr-auto">
+                    <a href="{% url 'login' %}">Login</a>
+                  </div>
+              {% endif %}
+              </p>
+          </div>
+
+        </nav>
+
+        <div class="container">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+    </body>
+
+</html>

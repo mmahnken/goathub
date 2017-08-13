@@ -1,0 +1,38 @@
+{% extends 'goats/base.html' %}
+
+{% block style %}
+    <style>
+    img.goat {
+        width: 10em;
+        padding: 0.5em;
+    }
+    </style>
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <span><a href="{% url 'goats_list' %}">Classic View</a> | <a href="{% url 'goats_list'%}?format=pinterest">Pinterest View</a></span>
+    </div>
+
+    {% for goat in object_list %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3">
+                <img class="goat" src="{{ goat.photo.url }}">
+            </div>
+            <div class="col-xs-3">
+                <a href="{% url 'goat_detail' goat.pk %}"<h2>{{ goat.name }}</h2></a>
+                <p>{{ goat.description }}</p>
+            </div>
+
+
+        </div>
+    </div>
+    {% endfor %}
+
+
+{% endblock %}
+
+

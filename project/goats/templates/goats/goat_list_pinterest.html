@@ -1,0 +1,32 @@
+{% extends 'goats/base.html' %}
+
+{% block style %}
+    <style>
+    .card {
+{#        display: inline-block;#}
+    }
+    </style>
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="card-columns">
+        {% for goat in object_list %}
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{{ goat.photo.url }}">
+                <div class="card-block">
+                    <a href="{% url 'goat_detail' goat.pk %}"<h4 class="card-title">{{ goat.name }}</h4></a>
+                    <p class="card-text">{{ goat.description }}</p>
+                </div>
+            <div class="card-footer">
+                <small class="text-muted">{{ goat.comment_set.count }} comments</small>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+
